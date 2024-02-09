@@ -1,0 +1,34 @@
+.save {
+  border: none;
+}
+
+::ng-deep .ck-content .mention {
+  background: white;
+  color: black;
+}
+
+.mat-mdc-card-content.card {
+  padding: 0px !important;
+}
+
+::ng-deep .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+  border: none !important;
+}
+
+::ng-deep ck-rounded-corners .ck.ck-balloon-panel,
+.ck.ck-balloon-panel.ck-rounded-corners {
+  z-index: 9999 I !important;
+}
+
+.shadow {
+  box-shadow: 0px 0px 7px 3px rgba(31, 38, 62, 0.75) !important;
+}
+
+::ng-deep .mat-mdc-row {
+  height: 32px !important;
+}
+
+.template-aligment {
+  text-align: right;
+  direction: rtl;
+}

@@ -1,0 +1,43 @@
+.mat-mdc-card-avatar {
+  width: 20px !important;
+}
+
+.mat-mdc-card {
+  border-radius: 10px !important;
+  background: #b6b9c3 !important;
+}
+
+.mat-mdc-card .mat-card-sub {
+  border-radius: 12px !important;
+  border: 0.7px solid #dfe5f9 !important;
+  background: #fff !important;
+  word-wrap: break-word;
+  height: 100% !important;
+  // min-height: 140px !important;
+}
+
+.title {
+  color: #000a12;
+  font-family: Oxygen;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.subTitle {
+  color: #000;
+  font-family: Oxygen;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.amt {
+  color: #000a12;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

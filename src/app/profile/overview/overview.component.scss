@@ -1,0 +1,81 @@
+.avatar-container {
+  position: relative;
+  width: fit-content;
+  margin-top: -50px;
+}
+
+
+
+.icon-wrapper {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  padding: 0.35rem;
+  background-color: #1f263e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  top: 50%;
+  z-index: 2;
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.25s;
+    background-color: darken(#2962ff, 15%);
+  }
+
+  .icon {
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    width: 70px;
+    height: 70px;
+  }
+  .icon-wrapper {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    padding: 0.35rem;
+    background-color: #1f263e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 50%;
+    z-index: 2;
+    cursor: pointer;
+
+    &:hover {
+      transition: all 0.25s;
+      background-color: darken(#2962ff, 15%);
+    }
+
+    .icon {
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+

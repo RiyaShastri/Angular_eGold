@@ -1,0 +1,21 @@
+.confirmpopup {
+  text-align: center;
+}
+
+.align-content {
+  display: block !important;
+  text-align: center;
+}
+
+mat-icon {
+  font-size: 20px !important;
+}
+
+.alert-body {
+  img {
+    max-width: 50px;
+  }
+}
+::ng-deep .mdc-dialog .mdc-dialog__content {
+  padding: 5px !important;
+}

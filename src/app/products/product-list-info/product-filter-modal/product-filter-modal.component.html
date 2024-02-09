@@ -1,0 +1,47 @@
+<form [formGroup]="filterForm">
+    <div class="d-flex justify-content-between">
+        <h1 mat-dialog-title>Filter Records</h1>
+        <div class="d-flex text-end">
+            <mat-icon class="text-danger m-auto me-3" mat-dialog-close>close</mat-icon>
+        </div>
+    </div>
+
+    <div mat-dialog-content>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="order_codes">Product name</label>
+                <input type="text" placeholder="Product name" class="form-control form-control-sm"
+                    formControlName="productName" />
+            </div>
+            <div class="col-md-6">
+                <div class="depo-dropDown">
+                    <label for="depositor_ids">Depositor</label>
+                    <mat-form-field appearance="outline" class="custom-multi-select" floatLabel="always">
+                        <mat-select formControlName="depositor_ids" multiple placeholder="Select">
+                            <mat-option *ngFor="let depositor of configData.dim_depositors"
+                                [value]="depositor.idx">{{depositor.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="depositor_ids">Oversized</label>
+                <select class="form-select form-select-sm" formControlName="oversized">
+                    <option value="">All</option>
+                    <option *ngFor="let oversize of oversizedOption" [value]="oversize.name">
+                        {{oversize.value}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+    </div>
+    <div mat-dialog-actions class="float-end">
+        <button type="submit" class="btn btn-primary text-white mx-1" mat-dialog-close (click)="FilterData()">
+            Filter
+        </button>
+    </div>
+</form>

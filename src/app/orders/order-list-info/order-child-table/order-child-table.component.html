@@ -1,0 +1,143 @@
+<div class="mb-2 text-right p-3">
+  <mat-icon (click)="onCancel()" class="text-danger p-1">
+    clear
+  </mat-icon>
+</div>
+
+
+<!-- Couriers Delivery Table Section -->
+<div *ngIf="orderProductTableForm" class="example-table-container">
+  <form [formGroup]="orderProductTableForm">
+    <table class="table" mat-table cdkDropList cdkDropListOrientation="horizontal" formArrayName="tableData"
+      (cdkDropListDropped)="tableColumnDragDrop($event)" [dataSource]="tableDataSource"
+      class="mat-elevation-z8 demo-table">
+
+      <ng-container *ngFor="let column of tableColumns;">
+
+
+        <ng-container *ngIf="column.columnDef == 'select'" sticky matColumnDef="select">
+          <th mat-header-cell sticky *matHeaderCellDef id="check" class="px-0" cdkDrag cdkDragLockAxis="x"
+            cdkDragBoundary="mat-header-row">
+            <div class="custom-checkbox">
+              <mat-checkbox (change)="$event ? toggleTableAllRows() : null ; onRowTableCheckBoxSelected()"
+                [checked]="selection.hasValue() && isAllCheckBoxSelected()"
+                [indeterminate]="selection.hasValue() && !isAllCheckBoxSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </div>
+          </th>
+          <td class="white-space-nowrap" mat-cell *matCellDef="let row  ; let rowIndex = index;"
+            [ngStyle]="{'background-color': tableData.value[rowIndex].isEditBtnClicked ?  '#d9d9d9e4' : ''}"
+            class="px-0">
+            <div *ngIf="rowIndex !== (tableData.value.length - 1)" class="custom-checkbox">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null ; onRowTableCheckBoxSelected()"
+                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+
+        <!-- Table Data Column -->
+        <ng-container *ngIf=" column.columnDef && column.columnDef !== 'select' && 
+                column.columnDef !== 'action'" [matColumnDef]="column.columnDef">
+          <th mat-header-cell *matHeaderCellDef cdkDrag cdkDragLockAxis="x" cdkDragBoundary="mat-header-row"
+            style="min-width:100px;" [cdkDragDisabled]="isPreventDragDrop">
+            {{column.header}}
+          </th>
+
+          <td mat-cell *matCellDef="let row ; let i = index;" [ngStyle]="{'background-color': tableData.value[i].isEditBtnClicked ?  '#d9d9d9e4' : '',
+                              'min-width':'100px','max-width':'200px'}" [formGroupName]="i" class="white-space-nowrap">
+
+            <div *ngIf="i !== (tableData.value.length - 1)">
+              <div *ngIf="(!tableData.value[i].isEditBtnClicked)"
+                [ngStyle]="tableEditedField[i][column.columnDef] && {'color': '#50b8e4'}">
+                <div class="white-space-nowrap" *ngIf="column.cell(row)" matTooltip="{{ column.cell(row)}}">
+                  {{ column.cell(row) }}
+                </div>
+                <div *ngIf="!(column.cell(row))" class="fadedColor">
+                  {{ column.header }}
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="tableData.value[i].isEditBtnClicked">
+              <div *ngIf="column.controlType && column.controlType =='Label'">
+                <label>
+                  <input type="text" class="form-control form-control-sm" [placeholder]="column.header"
+                    [formControlName]="column.columnDef" readonly />
+                </label>
+              </div>
+              <div *ngIf="column.controlType && column.controlType =='text'">
+                <input type="text" class="form-control form-control-sm" [formControlName]="column.columnDef"
+                  [placeholder]="column.placeholder ? column.placeholder : '' "
+                  [ngClass]="{'is-invalid':  isColumnInvalid(i,column.columnDef)}" />
+              </div>
+
+              <div *ngIf="column.controlType && column.controlType =='number'">
+                <input type="number" class="form-control form-control-sm" [formControlName]="column.columnDef"
+                  [placeholder]="column.placeholder ? column.placeholder : '' "
+                  [ngClass]="{'is-invalid':  isColumnInvalid(i,column.columnDef)}" />
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Table Action Column -->
+        <ng-container *ngIf="column.columnDef && column.columnDef == 'action'" [matColumnDef]="column.columnDef"
+          stickyEnd>
+          <th style="min-width: 75px;" mat-header-cell *matHeaderCellDef id="forAction" cdkDrag cdkDragLockAxis="x"
+            cdkDragBoundary="mat-header-row">
+            {{column.header}}
+          </th>
+
+          <td mat-cell style="min-width: 75px;" mat-cell *matCellDef="let row; let i = index"
+            [ngStyle]="{'background-color': tableData.value[i].isEditBtnClicked ?  '#d9d9d9e4' : ''}">
+            <div class="d-flex gap-2" *ngIf="i !== (tableData.value.length - 1)">
+              <div *ngIf="!tableData.value[i].isEditBtnClicked">
+                <mat-icon class="text-success table-action-icons" (click)="enableEditRow(i)">
+                  edit
+                </mat-icon>
+              </div>
+              <div class="d-flex gap-1" *ngIf="tableData.value[i].isEditBtnClicked">
+                <mat-icon class="table-action-icons text-primary" (click)="onTableActionFn('save' , row , i )">
+                  save
+                </mat-icon>
+                <mat-icon class="table-action-icons text-danger" (click)="onTableActionFn('cancel' , row , i )">
+                  cancel
+                </mat-icon>
+              </div>
+            </div>
+          </td>
+
+        </ng-container>
+      </ng-container>
+
+      <!-- For Display Table Column  -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;" [formGroupName]="i">
+      </tr>
+
+      <!-- For No Data Found -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center p-2 text-danger" colspan="10">No Data Match</td>
+      </tr>
+    </table>
+  </form>
+
+  <div class="row mt-3 fix_bottom_footer">
+    <div class="col-12 d-flex justify-content-center align-item-center gap-3">
+
+      <button type="submit" class="btn btn-primary text-white mx-1" (click)="updateAllRecord()"
+        [disabled]="isFooterBtnActive.btnStatus === false">
+        Update
+      </button>
+
+      <button type="button" class="btn btn-danger text-white" (click)="confirmDelete()"
+        [disabled]="!tableSelectedRow || tableSelectedRow == 0 ">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

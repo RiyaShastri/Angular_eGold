@@ -1,0 +1,12 @@
+::ng-deep .ck-content .mention {
+  background: white;
+  color: black;
+}
+
+.mat-mdc-card-content.card {
+  padding: 0px !important;
+}
+
+::ng-deep .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+  border: none !important;
+}

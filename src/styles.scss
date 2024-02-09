@@ -1,0 +1,351 @@
+/* You can add global styles to this file, and also import other style files */
+@use "app/themefolders/theme/style";
+@use "styles/themes";
+@use "styles/custom";
+@use "styles/helpers";
+@use "styles/plugins";
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
+
+// @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+.custom-menu.mat-mdc-menu-panel {
+  width: calc(100vw - 400px) !important;
+  max-width: calc(100vw - 700px) !important;
+  max-height: calc(100vw - 1160px) !important;
+  box-shadow: 0px 0px 7px 3px rgba(31, 38, 62, 0.75);
+}
+
+.custom-menu-menu2.mat-mdc-menu-panel {
+  width: calc(100vw - 400px) !important;
+  max-width: calc(100vw - 400px) !important;
+  max-height: calc(100vw - 1160px) !important;
+  box-shadow: 0px 0px 7px 3px rgba(31, 38, 62, 0.75);
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1250px) {
+  .custom-menu.mat-mdc-menu-panel {
+    width: calc(100vw - 32vw) !important;
+    max-width: calc(100vw - 400px) !important;
+    max-height: 100vh !important;
+    box-shadow: 0px 0px 7px 3px rgba(31, 38, 62, 0.75);
+  }
+}
+
+@media (max-width: 1023px) {
+  .custom-menu.mat-mdc-menu-panel {
+    width: calc(100vw - 44vw) !important;
+    max-width: calc(100vw - 400px) !important;
+    max-height: 100vh !important;
+    box-shadow: 0px 0px 7px 3px rgba(31, 38, 62, 0.75);
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-menu.mat-mdc-menu-panel {
+    width: 48vw !important;
+    max-width: calc(100vw - 400px) !important;
+    max-height: 100vh !important;
+    box-shadow: 0px 0px 7px 3px rgba(31, 38, 62, 0.75);
+  }
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #d9d9d9e4;
+}
+
+.example-table-container {
+  position: relative;
+  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+  table {
+    thead {
+      tr {
+        th {
+          background-color: #f1f3f9 !important;
+          white-space: nowrap;
+
+          &:first-child {
+            border-top-left-radius: 8px;
+          }
+          &:last-child {
+            border-top-right-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+  &.style2 {
+    min-height: auto !important;
+  }
+}
+
+.white-space-nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-card-header {
+  border-radius: 8px 8px 0px 0px !important;
+  background-color: #f1f3f9;
+  padding: 10px !important;
+  font-size: calc(16px + 4 * (100vw - 320px) / 1600);
+}
+
+.custom-switch {
+  .form-switch .form-check-input {
+    width: 60px;
+    height: 30px;
+    &:focus {
+      box-shadow: none;
+    }
+    &:checked {
+      background-color: #50b8e4;
+      border-color: #50b8e4;
+    }
+  }
+}
+
+.custom-checkbox {
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background,
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:indeterminate
+    ~ .mdc-checkbox__background,
+  .mdc-checkbox
+    .mdc-checkbox__native-control[data-indeterminate="true"]:enabled
+    ~ .mdc-checkbox__background {
+    border-color: #50b8e4;
+    background-color: #50b8e4;
+    height: 14px;
+    width: 14px;
+    &:hover {
+      border-color: #50b8e4;
+      background-color: #50b8e4;
+    }
+  }
+
+  .custom-disable-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control[disabled]:checked
+    ~ .mdc-checkbox__background,
+  .custom-disable-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control[disabled]:indeterminate
+    ~ .mdc-checkbox__background,
+  .custom-disable-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control[data-indeterminate="true"][disabled]
+    ~ .mdc-checkbox__background {
+    border-color: #50b8e4 !important;
+    background-color: #50b8e4 !important;
+  }
+
+  .custom-disable-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control[disabled]:not(:checked):not(
+      :indeterminate
+    ):not([data-indeterminate="true"])
+    ~ .mdc-checkbox__background {
+    border-color: #50b8e4 !important;
+  }
+
+  .mdc-checkbox:hover
+    .mdc-checkbox__native-control:checked
+    ~ .mdc-checkbox__background {
+    background-color: #50b8e4 !important;
+    border-color: #50b8e4 !important;
+  }
+
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:checked
+    ~ .mdc-checkbox__background,
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:indeterminate
+    ~ .mdc-checkbox__background {
+    background-color: #50b8e4 !important;
+    border-color: #50b8e4 !important;
+  }
+}
+
+.custom-checkbox {
+  .mat-mdc-checkbox-ripple,
+  .mdc-checkbox__ripple {
+    display: none !important;
+  }
+  .mdc-checkbox
+    .mdc-checkbox__native-control:focus:checked
+    ~ .mdc-checkbox__ripple {
+    // background-color: #50b8e4 !important ;
+    opacity: 0 !important;
+  }
+}
+.mdc-checkbox__background {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+input[readonly] {
+  background-color: #d9d9d9e4;
+  &:hover {
+    background-color: #d9d9d9e4;
+  }
+  &:focus {
+    background-color: #d9d9d9e4;
+  }
+}
+input[disabled] {
+  background-color: #d9d9d9e4;
+  &:hover {
+    background-color: #d9d9d9e4;
+  }
+  &:focus {
+    background-color: #d9d9d9e4;
+  }
+}
+
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+  background-color: #1f263e !important;
+  color: white !important;
+  &:hover {
+    color: #50b8e4 !important;
+  }
+}
+
+.ck-balloon-panel {
+  z-index: 1020 !important;
+}
+
+.custom-ckeditor {
+  .ck-content {
+    padding: 0 !important;
+    p {
+      margin: 0 !important;
+    }
+    &.ck-focused {
+      border: none !important;
+      outline: 0 !important;
+      box-shadow: unset !important;
+    }
+  }
+  .ck-toolbar {
+    border: none !important;
+  }
+}
+
+mat-paginator {
+  @media only screen and (max-width: 575px) {
+    .mat-mdc-paginator-container {
+      margin: 10px 0;
+      justify-content: center;
+    }
+    .mat-mdc-paginator-range-actions {
+      flex-wrap: wrap !important;
+      justify-content: center;
+      .mat-mdc-paginator-range-label {
+        flex: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.cellRow {
+  color: #50b8e4;
+}
+
+.fadedColor {
+  color: lightgrey;
+}
+
+.mat-mdc-row {
+  height: 32px !important;
+}
+
+.table-action-icons.mat-icon {
+  font-size: 18px;
+  line-height: 1;
+  height: 18px;
+  width: 18px;
+  cursor: pointer;
+}
+
+.ck-editor__editable_inline {
+  min-height: 200px;
+}
+
+.fix_bottom_footer {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #fafafa;
+  z-index: 999;
+}
+
+.custom-multi-select {
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+    .mat-mdc-form-field-infix {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    min-height: 32px;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background-color: white;
+  }
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline__trailing {
+    border-color: #dee2e6;
+  }
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+      .mdc-text-field--focused
+    ):hover
+    .mdc-notched-outline
+    .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+      .mdc-text-field--focused
+    ):hover
+    .mdc-notched-outline
+    .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+      .mdc-text-field--focused
+    ):hover
+    .mdc-notched-outline
+    .mdc-notched-outline__trailing {
+    border-color: #dee2e6;
+  }
+}
+
+.ck-balloon-panel {
+  z-index: 1020 !important;
+}
+
+// Product Product List - Filter pop Multi select Responsive
+@media only screen and (max-width: 767px) {
+  .depo-dropDown {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+}

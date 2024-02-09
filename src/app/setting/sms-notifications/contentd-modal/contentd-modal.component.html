@@ -1,0 +1,46 @@
+<div>
+    <div class="d-flex justify-content-between">
+        <p mat-dialog-title>Edit Content Template</p>
+        <mat-icon class="text-danger mx-3 mt-3" (click)="dialogCancel()">close</mat-icon>
+    </div>
+</div>
+<div mat-dialog-content>
+    <div class="px-4 py-2" (click)="$event.stopPropagation()">
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <form [formGroup]="mentionOption">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="custom-ckeditor">
+                                <ckeditor [editor]="editor" [config]="editorConfig" formControlName="mentionList"
+                                    (ngModelChange)="editorEvent($event)"
+                                    [ngClass]="{'ckEditorClass':ckEditorClass  === true}">
+                                </ckeditor>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex align-item-center justify-content-end">
+                            <small class="">
+                                <label class="mx-1"> Max Length : </label>
+                                <span class="fw-bold">
+                                    {{ txtBindMsg }}
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions align="center">
+    <div class="row mt-3">
+        <div class="col-12 d-flex justify-content-center align-item-center gap-1">
+            <button type="submit" class="btn btn-primary text-white mx-1" (click)="onOkayBtnClick()">
+                Ok
+            </button>
+        </div>
+    </div>
+</div>

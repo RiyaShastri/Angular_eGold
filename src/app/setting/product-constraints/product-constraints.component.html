@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-12">
+        <mat-card class=" p-1 mb-3">
+            <mat-card-header class="mb-2 custom-card-header justify-content-start">
+                <strong>
+                    Product maximal dimensions
+                </strong>
+            </mat-card-header>
+            <mat-card-content >
+                <form [formGroup]="productMaximalDimensions" (ngSubmit)="productMaximalFormSubmit()" *ngIf="!isAPILoading">
+                    <div class="mb-3">
+                        <div class="table-responsive">
+                            <table class="table" formArrayName="ProducttableData">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="w-25"></th>
+                                        <th scope="col">Width</th>
+                                        <th scope="col">Length</th>
+                                        <th scope="col">Heigth</th>
+                                        <th scope="col">Weight</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let item of ProducttableData.controls ; let i = index">
+                                        <ng-container [formGroupName]="i">
+                                            <tr>
+                                                <td class="text-nowrap">
+                                                    {{item.value.title}}
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Value" sizing="sm"
+                                                        class="form-control form-control-sm w-100"
+                                                        formControlName="width"
+                                                        [ngClass]="{'is-invalid':ProducttableData.controls[i].get('width')?.touched && ProducttableData.controls[i].get('width')?.invalid }" />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Value" sizing="sm"
+                                                        class="form-control form-control-sm w-100"
+                                                        formControlName="length"
+                                                        [ngClass]="{'is-invalid':ProducttableData.controls[i].get('length')?.touched && ProducttableData.controls[i].get('length')?.invalid}" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Value" sizing="sm"
+                                                        class="form-control form-control-sm w-100"
+                                                        formControlName="height"
+                                                        [ngClass]="{'is-invalid':ProducttableData.controls[i].get('height')?.touched && ProducttableData.controls[i].get('height')?.invalid}" />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Value" sizing="sm"
+                                                        class="form-control form-control-sm w-100"
+                                                        formControlName="weight"
+                                                        [ngClass]="{'is-invalid':ProducttableData.controls[i].get('weight')?.touched && ProducttableData.controls[i].get('weight')?.invalid}" />
+
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary text-white" (click)="resetClick()">
+                                Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary text-white mx-1"
+                                [disabled]="productMaximalDimensions['invalid']">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div *ngIf="isAPILoading" class="row">
+                    <div class="col-12 d-flex align-item-center justify-content-center">
+                        <img src="assets/img/icons/loader.svg" />
+                    </div>
+                </div>
+                
+                <div class="row" *ngIf="tableEditedField?.length == 0 && !isAPILoading">
+                    <div class="col-12 text-danger d-flex align-item-center justify-content-center mt-5 pt-5">
+                        <p> No Data Found </p>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

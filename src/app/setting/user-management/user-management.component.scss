@@ -1,0 +1,24 @@
+.save {
+  border: none;
+}
+
+table th:hover .resize-handle {
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+}
+
+.resize-handle {
+  display: inline-block;
+  border-right: 2px solid lightgray;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  cursor: col-resize;
+  opacity: 0;
+}
+
+.resize-handle:hover {
+  width: 20px;
+}
+

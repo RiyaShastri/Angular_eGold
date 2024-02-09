@@ -1,0 +1,1 @@
+!function(e){const o=e["es-co"]=e["es-co"]||{};o.dictionary=Object.assign(o.dictionary||{},{"%0 of %1":"%0 de %1",Cancel:"Cancelar",Clear:"","Show more items":"Mostrar más elementos"}),o.getPluralForm=function(e){return 1==e?0:0!=e&&e%1e6==0?1:2}}(window.CKEDITOR_TRANSLATIONS||(window.CKEDITOR_TRANSLATIONS={}));

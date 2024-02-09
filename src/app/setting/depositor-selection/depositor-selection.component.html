@@ -1,0 +1,278 @@
+<!-- Depositor Top Section -->
+<form [formGroup]="TableControlForm">
+    <div class="d-flex flex-wrap justify-content-sm-between justify-content-center align-item-center mb-2">
+        <div class="d-flex gap-2 flex-wrap">
+            <div class="form-group pt-2 ml-3">
+                <div class="d-flex justify-content-start align-item-center gap-3">
+                    <input type="text" placeholder="Search" class="form-control form-control-sm mx-1"
+                        formControlName="searchTxt" (click)="searchWarning()" />
+                    <button mat-mini-fab color="primary" (click)="searchBtnClick()">
+                        <mat-icon> search </mat-icon>
+                    </button>
+                    <button mat-mini-fab color="primary" (click)="resetSearchField()">
+                        <mat-icon> refresh </mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="tableData.length > 0">
+            <app-common-pagination [totalRecords]="form.totalRecords.value"
+                (getPaginationDetail)="getPaginationDetail($event)">
+            </app-common-pagination>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="!isAPILoading">
+    <!-- Depositor Table Section -->
+    <div *ngIf="tableData.length > 0" class="example-table-container">
+        <form [formGroup]="TableForm">
+            <table class="table" mat-table cdkDropList cdkDropListOrientation="horizontal" formArrayName="tableData"
+                (cdkDropListDropped)="tableColumnDragDrop($event)" matSort (matSortChange)="tableSortData()"
+                [dataSource]="tableDataSource" class="mat-elevation-z8 demo-table">
+                <ng-container *ngFor="let column of tableColumns;">
+
+                    <!-- Table CheckBox  -->
+                    <ng-container *ngIf="column.columnDef && column.columnDef == 'select'" sticky matColumnDef="select">
+                        <th mat-header-cell sticky *matHeaderCellDef id="check" class="px-0" cdkDrag cdkDragLockAxis="x"
+                            cdkDragBoundary="mat-header-row">
+                            <div class="custom-checkbox">
+                                <mat-checkbox
+                                    (change)="$event ? toggleTableAllRows() : null ; onRowTableCheckBoxSelected()"
+                                    [checked]="selection.hasValue() && isAllCheckBoxSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllCheckBoxSelected()"
+                                    [aria-label]="tableCheckboxLabel()">
+                                </mat-checkbox>
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let row  ; let rowIndex = index;"
+                            [ngStyle]="{'background-color': tableData.value[rowIndex].isEditBtnClicked ?  '#d9d9d9e4' : ''}"
+                            class="px-0">
+                            <div *ngIf="rowIndex !== (tableData.value.length - 1)" class="custom-checkbox">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null ; onRowTableCheckBoxSelected()"
+                                    [checked]="selection.isSelected(row)" [aria-label]="tableCheckboxLabel(row)">
+                                </mat-checkbox>
+                            </div>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+
+
+                    <!-- Table Data Column -->
+                    <ng-container
+                        *ngIf="column.columnDef && column.columnDef !== 'select' && column.columnDef !== 'action'"
+                        [matColumnDef]="column.columnDef">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header cdkDrag cdkDragLockAxis="x"
+                            cdkDragBoundary="mat-header-row" style="min-width:200px;"
+                            [cdkDragDisabled]="isPreventDragDrop">
+                            {{column.header}}
+                        </th>
+
+                        <td mat-cell *matCellDef="let row ; let i = index;" [ngStyle]="{'background-color': tableData.value[i].isEditBtnClicked ?  '#d9d9d9e4' : '',
+                            'min-width':'200px','max-width':'400px'}" [formGroupName]="i" class="white-space-nowrap">
+
+                            <div *ngIf="i !== (tableData.value.length - 1)">
+                                <div *ngIf="(!tableData.value[i].isEditBtnClicked)"
+                                    [ngStyle]="tableEditedField[i][column.columnDef] && {'color': '#50b8e4'}">
+
+                                    <div class="white-space-nowrap" *ngIf="column.cell(row) && column.controlType !== 'select'
+                                         && row[column.columnDef]" matTooltip="{{ column.cell(row)}}">
+                                        {{ column.cell(row) }}
+                                    </div>
+
+                                    <div class="white-space-nowrap"
+                                        *ngIf="column.cell(row) && column.controlType == 'select' "
+                                        matTooltip="{{ row[column.columnDef]?.name ? row[column.columnDef]?.name : null}}">
+                                        {{ row[column.columnDef]?.name ? row[column.columnDef]?.name : null}}
+                                    </div>
+
+                                    <div *ngIf="!(column.cell(row)) || !row[column.columnDef]" class="fadedColor">
+                                        {{ column.header }}
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- onEditBtn Click -->
+                            <div *ngIf="tableData.value[i].isEditBtnClicked">
+
+                                <div *ngIf="column.controlType && column.controlType =='text'">
+                                    <input type="text" class="form-control form-control-sm"
+                                        [formControlName]="column.columnDef"
+                                        [placeholder]="column.placeholder ? column.placeholder : '' "
+                                        [ngClass]="{'is-invalid':  isColumnInvalid(i,column.columnDef)}" />
+                                </div>
+
+                                <div *ngIf="column.controlType && column.controlType =='number'">
+                                    <input type="number" class="form-control form-control-sm"
+                                        [formControlName]="column.columnDef"
+                                        [placeholder]="column.placeholder ? column.placeholder : '' "
+                                        [ngClass]="{'is-invalid':  isColumnInvalid(i,column.columnDef)}" />
+                                </div>
+
+                                <div *ngIf="column.controlType && column.controlType =='Label'">
+                                    <label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [placeholder]="column.header" [formControlName]="column.columnDef"
+                                            readonly />
+                                    </label>
+                                </div>
+
+                                <div *ngIf="column.controlType && column.controlType =='select' ">
+                                    <select class=" form-select form-select-sm" [formControlName]="column.columnDef"
+                                        [ngClass]="{'is-invalid':  isColumnInvalid(i,column.columnDef) }"
+                                        (change)="onSelectChange($event)">
+                                        <option value="" selected>Select
+                                        </option>
+                                        <option *ngFor=" let optionsObj of ApiDataConfig[column?.optionsKey || '']"
+                                            [ngValue]="optionsObj">
+                                            {{optionsObj.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div *ngIf="column.controlType && column.controlType =='multi-select' ">
+
+                                    <mat-form-field [ngClass]="{'is-invalid': isColumnInvalid(i,column.columnDef) }"
+                                        floatLabel="always" appearance="outline" class="custom-multi-select">
+                                        <mat-select [formControlName]="column.columnDef" multiple placeholder="Select"
+                                            (selectionChange)="onMatSelectChange($event,i)">
+                                            <mat-option
+                                                *ngFor="let optionsObj of ApiDataConfig[column?.optionsKey || '']"
+                                                [value]="optionsObj.name">{{optionsObj.name}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td mat-footer-cell *matFooterCellDef class="mb-3"
+                            [formGroupName]="(tableData.value.length - 1)">
+                            <!-- Footer Row Form  -->
+                            <div *ngIf="column.controlType && ['text','number'].includes(column.controlType)">
+                                <input type="text" class="form-control form-control-sm"
+                                    [formControlName]="column.columnDef"
+                                    [placeholder]="column.placeholder ? column.placeholder : '' "
+                                    [ngClass]="{'is-invalid': isFooterFormColumnInvalid(tableData.value.length - 1,column.columnDef) }" />
+                            </div>
+
+                            <div
+                                *ngIf="column.controlType && column.controlType=='Label' && column.columnDef == 'client_code' ">
+                                <input type="text" class="form-control form-control-sm"
+                                    [formControlName]="column.columnDef"
+                                    [placeholder]="column.placeholder ? column.placeholder : '' "
+                                    [ngClass]="{'is-invalid': isFooterFormColumnInvalid(tableData.value.length - 1,column.columnDef) }" />
+                            </div>
+
+
+                            <div *ngIf="column.controlType && column.controlType =='select' ">
+                                <select class="form-select form-select-sm" [formControlName]="column.columnDef"
+                                    [ngClass]="{'is-invalid': isFooterFormColumnInvalid(tableData.value.length - 1,column.columnDef) }">
+                                    <option value="" selected>Select
+                                    </option>
+                                    <option *ngFor=" let optionsObj of ApiDataConfig[column?.optionsKey || '']"
+                                        [ngValue]="optionsObj">
+                                        {{optionsObj.name}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div *ngIf="column.controlType && column.controlType =='multi-select' ">
+                                <mat-form-field appearance="outline" class="custom-multi-select" floatLabel="always"
+                                    [ngClass]="{'is-invalid': isFooterFormColumnInvalid(tableData.value.length - 1,column.columnDef) }">
+                                    <mat-select [formControlName]="column.columnDef" multiple placeholder="Select"
+                                        (selectionChange)="onMatSelectChange($event,tableData.value.length - 1)">
+                                        <mat-option *ngFor=" let optionsObj of ApiDataConfig[column?.optionsKey || '']"
+                                            [value]="optionsObj.name">{{optionsObj.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </ng-container>
+
+
+                    <!-- Table Action Column -->
+                    <ng-container *ngIf="column.columnDef && column.columnDef == 'action'"
+                        [matColumnDef]="column.columnDef" stickyEnd>
+                        <th style="min-width: 75px;" mat-header-cell *matHeaderCellDef id="forAction" cdkDrag
+                            cdkDragLockAxis="x" cdkDragBoundary="mat-header-row">
+                            {{column.header}}
+                        </th>
+
+                        <td mat-cell style="min-width: 75px;" mat-cell *matCellDef="let row; let i = index"
+                            [ngStyle]="{'background-color': tableData.value[i].isEditBtnClicked ?  '#d9d9d9e4' : ''}">
+                            <div class="d-flex gap-2" *ngIf="i !== (tableData.value.length - 1)">
+                                <div *ngIf="!tableData.value[i].isEditBtnClicked">
+                                    <mat-icon class="text-success table-action-icons" (click)="enableEditRow(i)">
+                                        edit
+                                    </mat-icon>
+                                </div>
+                                <div class="d-flex gap-1" *ngIf="tableData.value[i].isEditBtnClicked">
+                                    <mat-icon class="table-action-icons text-primary"
+                                        (click)="onTableActionFn('save' , row , i )">
+                                        save
+                                    </mat-icon>
+                                    <mat-icon class="table-action-icons text-danger"
+                                        (click)="onTableActionFn('cancel' , row , i )">
+                                        cancel
+                                    </mat-icon>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="min-width: 75px;" mat-footer-cell *matFooterCellDef>
+                            <mat-icon class="table-action-icons text-primary" (click)="onSaveNewRecord()">
+                                save
+                            </mat-icon>
+                        </td>
+                    </ng-container>
+                </ng-container>
+
+                <!-- For Display Table Column  -->
+                <tr mat-header-row *matHeaderRowDef="displayedTableColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; let i = index; columns: displayedTableColumns;" [formGroupName]="i">
+                </tr>
+                <tr mat-footer-row *matFooterRowDef="displayedTableColumns; sticky: true"
+                    class="example-first-footer-row">
+                </tr>
+
+                <!-- For No Data Found -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell text-center p-2 text-danger" colspan="7">No Data Match</td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div class="row mt-3 fix_bottom_footer" *ngIf="tableData.length > 0">
+        <div class="col-12 d-flex justify-content-center align-item-center gap-3">
+            <button type="button" class="btn btn-secondary text-white" (click)="resetWholePage()"
+                [disabled]="isFooterBtnActive.btnStatus === false">
+                Reset
+            </button>
+            <button type="submit" class="btn btn-primary text-white mx-1" (click)="updateAllRecord()"
+                [disabled]="isFooterBtnActive.btnStatus === false">
+                Update
+            </button>
+            <button type="button" class="btn btn-danger text-white" (click)="confirmDelete()"
+                [disabled]="!tableSelectedRow || tableSelectedRow == 0 ">
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isAPILoading" class="row">
+    <div class="col-12 d-flex align-item-center justify-content-center">
+        <img src="assets/img/icons/loader.svg" />
+    </div>
+</div>
+
+
+<div class="row" *ngIf="tableData?.length == 0 && !isAPILoading">
+    <div class="col-12 text-danger d-flex align-item-center justify-content-center mt-5 pt-5">
+        <p> No Data Found </p>
+    </div>
+</div>

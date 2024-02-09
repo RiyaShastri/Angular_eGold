@@ -1,0 +1,63 @@
+<div mat-dialog-content>
+    <div class="align-content w-100">
+        <mat-icon class="float-end align-item-center text-danger m-3" (click)="onOkClick()">
+            clear
+        </mat-icon>
+        <div class="text-center p-3 alert-body" *ngIf="data.message === 'delete'">
+            <img src="assets/img/icons/errorOutline.svg" style="margin-left: 30px;">
+            <h6 class="mt-2 mb-2">Total {{data?.row}} number of selected rows.</h6>
+            <p class="mt-2 mb-2 text-center">Are you want to delete?</p>
+        </div>
+
+        <div class="text-center p-3 alert-body" *ngIf="data.message === 'success'">
+            <img src="assets/img/icons/checkCircle.svg">
+            <h5 class="mt-2 mb-2">Success</h5>
+            <p class="mt-2 mb-2">Your operation was completed successfully.</p>
+        </div>
+
+        <div class="text-center p-3 alert-body" *ngIf="data.message === 'warning'">
+            <img src="assets/img/icons/alert.svg" style="margin-left: 30px;">
+            <h6 class="mt-2 mb-2" style="margin-left: 10px;">Are you sure you want to reset?</h6>
+            <p class="mt-2 mb-2">Your changes will be lost.</p>
+        </div>
+
+        <div class="text-center p-3 alert-body" *ngIf="data.type === 'alter'">
+            <img src="assets/img/icons/errorOutline.svg" style="margin-left: 30px;">
+            <h6 class="mt-2 mb-2" style="margin-left: 10px;">{{data.message}}</h6>
+            <p class="mt-2 mb-2">{{data.subMessage}}</p>
+        </div>
+
+        <div class="d-flex gap-2 justify-content-center" mat-dialog-actions>
+
+            <button type="submit" class="btn btn-primary text-white mx-1" (click)="DeleteYesButton()"
+                *ngIf="data.message === 'delete'">
+                Yes
+            </button>
+            <button type="button" class="btn btn-danger text-white px-3" *ngIf="data.message === 'delete'"
+                (click)="DeleteNoButton()">
+                No
+            </button>
+
+
+            <button (click)="AlterOkButton()" class="btn btn-primary text-white btn-sm px-4" mat-dialog-close
+                *ngIf="data.type === 'alter'">
+                Ok
+            </button>
+
+            <button (click)="AlterCancelButton()" class="btn btn-secondary text-white btn-sm px-4" mat-dialog-close
+                *ngIf="data.type === 'alter'">
+                Cancel
+            </button>
+
+            <button (click)="OkReset()" class="btn btn-primary text-white btn-sm px-4" mat-dialog-close
+                *ngIf="data.message === 'warning'">
+                Ok
+            </button>
+
+            <button (click)="CancelReset()" class="btn btn-secondary text-white btn-sm px-4" mat-dialog-close
+                *ngIf="data.message === 'warning'">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>

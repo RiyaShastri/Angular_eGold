@@ -1,0 +1,47 @@
+@use "sass:color";
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  $is-dark-theme: map.get($theme, is-dark);
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
+  $background: map.get($theme, background);
+  $foreground: map.get($theme, foreground);
+
+  .matero-sidemenu {
+    > .menu-item {
+      > .menu-heading {
+        color: #fff;
+        font-weight: 400;
+        line-height: normal;
+        &:hover,
+        &:focus {
+          background: #3f4869;
+        }
+      }
+
+      &.expanded {
+        background: #303750;
+      }
+    }
+
+    &.submenu {
+      > .menu-item {
+        background: #303750;
+        &.active {
+          background: #3f4869;
+          > .menu-heading {
+            &:focus {
+              background: #3f4869;
+            }
+          }
+        }
+
+        &.expanded {
+          background: transparent;
+        }
+      }
+    }
+  }
+}

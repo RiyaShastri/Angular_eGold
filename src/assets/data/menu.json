@@ -1,0 +1,123 @@
+{
+  "menu": [
+    {
+      "route": "dashboard",
+      "name": "dashboard",
+      "type": "link",
+      "icon": "homeIcon.png"
+    },
+
+    {
+      "route": "setting",
+      "name": "settings",
+      "type": "sub",
+      "icon": "settingIcon.png",
+      "children": [
+        {
+          "route": "general",
+          "name": "general",
+          "type": "link"
+        },
+        {
+          "route": "sms-notifications",
+          "name": "sms-notifications",
+          "type": "link"
+        },
+        {
+          "route": "product-constraints",
+          "name": "product-constraints",
+          "type": "link"
+        },
+        {
+          "route": "depositors",
+          "name": "depositors",
+          "type": "link"
+        },
+        {
+          "route": "couriers-delivery-regions",
+          "name": "couriers-delivery-regions",
+          "type": "link"
+        },
+        {
+          "route": "couriers-status-mapping",
+          "name": "couriers-status-mapping",
+          "type": "link"
+        },
+        {
+          "route": "drivers",
+          "name": "drivers",
+          "type": "link"
+        },
+        {
+          "route": "user-management",
+          "name": "user-management",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "orders",
+      "name": "orders",
+      "type": "sub",
+      "icon": "giftIcon.png",
+      "children": [
+        {
+          "route": "order-list-info",
+          "name": "order-list-info",
+          "type": "link"
+        },
+        {
+          "route": "manual-load",
+          "name": "manual-load",
+          "type": "link"
+        },
+        {
+          "route": "bulk-load",
+          "name": "bulk-load",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "products",
+      "name": "products",
+      "type": "sub",
+      "icon": "productIcon.png",
+      "children": [
+        {
+          "route": "products-list-info",
+          "name": "products-list-info",
+          "type": "link"
+        },
+        {
+          "route": "import-products",
+          "name": "import-products",
+          "type": "link"
+        },
+        {
+          "route": "purchase-orders",
+          "name": "purchase-orders",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "shoptools",
+      "name": "shoptools",
+      "type": "sub",
+      "icon": "shopTool-Icon.png",
+      "children": [
+        {
+          "route": "product-eGold-compliance",
+          "name": "product-eGold-compliance",
+          "type": "link"
+        },
+        {
+          "route": "product-eGold-comparison",
+          "name": "product-eGold-comparison",
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}

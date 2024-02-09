@@ -1,0 +1,40 @@
+<div class="d-flex w-full h-full">
+  <mat-card class="m-auto" style="max-width: 380px;">
+    <mat-card-header class="m-b-24">
+      <mat-card-title>
+        {{'register_welcome' | translate}}, <br />
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form class="form-field-full" [formGroup]="registerForm">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'username' | translate}}</mat-label>
+          <input matInput formControlName="username" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{'password' | translate}}</mat-label>
+          <input matInput type="password" formControlName="password" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{'confirm_password' | translate}}</mat-label>
+          <input matInput type="password" formControlName="confirmPassword" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+
+        <mat-checkbox>{{'read_and_agree' | translate}}</mat-checkbox>
+
+        <button class="w-full m-y-16" mat-raised-button color="primary">
+          {{'register' | translate}}
+        </button>
+
+        <div>{{'have_an_account' | translate}}?
+          <a routerLink="/auth/login">{{'login' | translate}}</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

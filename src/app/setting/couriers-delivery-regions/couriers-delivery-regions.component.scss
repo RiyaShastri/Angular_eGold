@@ -1,0 +1,12 @@
+::ng-deep .dropend .dropdown-toggle::after {
+  display: none;
+}
+
+::ng-deep html:not([dir="rtl"]) .dropdown-toggle::after {
+  display: none;
+}
+
+::ng-deep .mat-mdc-card-content .cardM {
+  display: block;
+  padding: 0 16px !important;
+}

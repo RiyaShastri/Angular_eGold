@@ -1,0 +1,47 @@
+<mat-card class="mb-2">
+  <mat-card-header>
+    <mat-card-title class="text-white mb-2">Orders Statistics</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row gy-3">
+      <div *ngFor="let stat of stats" class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+        <mat-card class="mat-card-sub">
+          <mat-card-header>
+            <div mat-card-avatar>
+              <img src="assets/img/sidebar/Outline.png">
+            </div>
+            <mat-card-subtitle class="text-black text-break title">{{stat.title}}</mat-card-subtitle>
+            <mat-card-subtitle class="subTitle">{{stat.subText}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <h4 class="text-center">{{stat.amount}}</h4>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title class=" text-white mb-2">Inventory Statistics</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="row gy-3">
+      <div *ngFor="let stat of invent" class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+        <mat-card class="mat-card-sub">
+          <mat-card-header>
+            <div mat-card-avatar>
+              <img src="assets/img/sidebar/Box.png">
+            </div>
+            <mat-card-subtitle class="text-black text-break title">{{stat.title}}</mat-card-subtitle>
+            <mat-card-subtitle class="subTitle">{{stat.subText}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <h4 class="text-center">{{stat.amount}}</h4>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

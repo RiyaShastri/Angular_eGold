@@ -1,0 +1,269 @@
+<div class="row">
+  <div class="col-12">
+    <mat-card class=" p-1 mb-4">
+      <mat-card-header class="mb-2 custom-card-header
+      justify-content-start">
+        <strong>
+          Settings
+        </strong>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="generalSettings" *ngIf="!isAPILoading">
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label cLabel class="col-form-label" for="SDToNDVM">
+                Change SD to ND if VM is constrained
+              </label>
+            </div>
+            <div class="col-md-8 ">
+              <div class="custom-switch">
+                <div class="form-check form-switch ">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                    formControlName="changeSDtoND">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label cLabel class="col-form-label" for="dimTolerance">
+                DIM tolerance on VM check (%)
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+
+            <div class="col-md-8">
+              <input type="text" placeholder="Value" class="form-control form-control-sm" formControlName="dimTolerance"
+                [ngClass]="{'is-invalid':generalSettings.controls['dimTolerance'].touched && generalSettings.controls['dimTolerance'].invalid}" />
+
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label cLabel class=" col-form-label" for="emailSosna">
+                Email Sosna
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+
+            <div class="col-md-8">
+              <input type="text" placeholder="Value" class="form-control form-control-sm" formControlName="emailSosna"
+                [ngClass]="{'is-invalid':generalSettings.controls['emailSosna'].touched && generalSettings.controls['emailSosna'].invalid}" />
+
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label cLabel class="col-form-label" for="emailCheetah">
+                Email Cheetah
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+
+            <div class="col-md-8">
+              <input type="text" placeholder="Value" class="form-control form-control-sm" formControlName="emailCheetah"
+                [ngClass]="{'is-invalid':generalSettings.controls['emailCheetah'].touched && generalSettings.controls['emailCheetah'].invalid}" />
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label cLabel class="col-form-label" for="emailFlyingCargo">
+                Email FlyingCargo (FCE & Boxit)
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+
+            <div class="col-md-8">
+              <input type="text" placeholder="Value" class="form-control form-control-sm"
+                formControlName="emailFlyingCargo"
+                [ngClass]="{'is-invalid':generalSettings.controls['emailFlyingCargo'].touched && generalSettings.controls['emailFlyingCargo'].invalid}" />
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label cLabel class="col-form-label" for="mailKatz">
+                Mail Katz
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+
+            <div class="col-md-8">
+              <input type="text" placeholder="Value" class="form-control form-control-sm" formControlName="mailKatz"
+                [ngClass]="{'is-invalid':generalSettings.controls['mailKatz'].touched && generalSettings.controls['mailKatz'].invalid}" />
+            </div>
+
+          </div>
+
+          <div class="row mb-3 form-group">
+            <div class="col-md-4">
+              <label cLabel class="col-form-label" for="dispatchAlertEmaila">
+                Dispatch monitor alert emails
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+
+            <div class="col-md-8">
+              <input type="text" placeholder="Value" class="form-control form-control-sm"
+                formControlName="dispatchAlertEmail"
+                [ngClass]="{'is-invalid':generalSettings.controls['dispatchAlertEmail'].touched && generalSettings.controls['dispatchAlertEmail'].invalid}" />
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary text-white" routerLink="/">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary mx-1" [disabled]="generalSettings.invalid"
+              (click)="settingSubmit()">
+              Update
+            </button>
+          </div>
+
+        </form>
+
+        <div *ngIf="isAPILoading" class="row">
+          <div class="col-12 d-flex align-item-center justify-content-center">
+            <img src="assets/img/icons/loader.svg" />
+          </div>
+        </div>
+
+        <div class="row" *ngIf="generalSettingsRecords?.length == 0 && !isAPILoading">
+          <div class="col-12 text-danger d-flex align-item-center justify-content-center mt-5 pt-5">
+            <p> No Data Found </p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <mat-card class="p-1 mb-4">
+      <mat-card-header class="custom-card-header">
+        <strong>
+          Operational Time frames
+        </strong>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="generalOTFrames" *ngIf="!isAPILoading">
+          <table class="table table-responsive table-borderless">
+            <thead>
+              <tr class="d-flex">
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row">
+                <td class="col-md-3">
+                  ND to SD change time-window
+                  <span class="text-danger">*</span>
+                </td>
+
+                <td class="col-1 text-end col-md-1">
+                  Start:
+                </td>
+
+                <td class="col-md-3">
+                  <div class="d-flex">
+                    <div>
+                      <input type="text" class="form-control form-control-sm w-75" placeholder="HH"
+                        formControlName="NDtoSDstartHH"
+                        [ngClass]="{'is-invalid':generalOTFrames.controls['NDtoSDstartHH'].touched && generalOTFrames.controls['NDtoSDstartHH'].invalid}" />
+                    </div>
+
+                    <div>
+                      <input type="text" class="form-control form-control-sm w-75" placeholder="MM"
+                        formControlName="NDtoSDstartMM"
+                        [ngClass]="{'is-invalid':generalOTFrames.controls['NDtoSDstartMM'].touched && generalOTFrames.controls['NDtoSDstartMM'].invalid}" />
+                    </div>
+                  </div>
+                </td>
+
+                <td class="col-1 text-end col-md-1">
+                  End:
+                </td>
+
+                <td class="col-md-3">
+                  <div class="d-flex">
+                    <div>
+                      <input type="text" class="form-control form-control-sm w-75" placeholder="HH"
+                        formControlName="NDtoSDendHH"
+                        [ngClass]="{'is-invalid':generalOTFrames.controls['NDtoSDendHH'].touched && generalOTFrames.controls['NDtoSDendHH'].invalid}" />
+
+                    </div>
+                    <div>
+                      <input type="text" class="form-control form-control-sm w-75" placeholder="MM"
+                        formControlName="NDtoSDendMM"
+                        [ngClass]="{'is-invalid':generalOTFrames.controls['NDtoSDendMM'].touched && generalOTFrames.controls['NDtoSDendMM'].invalid}" />
+
+                    </div>
+                  </div>
+                </td>
+
+              </tr>
+              <tr class="row">
+                <td class="col-md-3">
+                  SD accept time of day threshold
+                  <span class="text-danger">*</span>
+                </td>
+                <td class="col-1 text-end col-md-1">
+                  Start:
+                </td>
+                <td class="col-md-3">
+                  <div class="d-flex">
+                    <div>
+                      <input type="text" class="form-control form-control-sm w-75" placeholder="HH"
+                        formControlName="SDacceptStartHH"
+                        [ngClass]="{'is-invalid':generalOTFrames.controls['SDacceptStartHH'].touched && generalOTFrames.controls['SDacceptStartHH'].invalid}" />
+
+                    </div>
+                    <div>
+
+                      <input type="text" class="form-control form-control-sm w-75" placeholder="MM"
+                        formControlName="SDacceptStartMM"
+                        [ngClass]="{'is-invalid':generalOTFrames.controls['SDacceptStartMM'].touched && generalOTFrames.controls['SDacceptStartMM'].invalid}" />
+
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="d-flex mt-2 justify-content-center">
+            <button type="button" class="btn btn-secondary text-white" routerLink="/">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary text-white mx-1" (click)="OTframeSubmit()"
+              [disabled]="!generalOTFrames.valid">
+              Update
+            </button>
+          </div>
+        </form>
+
+        <div *ngIf="isAPILoading" class="row">
+          <div class="col-12 d-flex align-item-center justify-content-center">
+            <img src="assets/img/icons/loader.svg" />
+          </div>
+        </div>
+
+        <div class="row" *ngIf="generalSettingOTFUpdateFn?.length == 0 && !isAPILoading">
+          <div class="col-12 text-danger d-flex align-item-center justify-content-center mt-5 pt-5">
+            <p> No Data Found </p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

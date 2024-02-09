@@ -1,0 +1,112 @@
+<div>
+    <div class="d-flex flex-row justify-content-center">
+        <mat-card class="mb-4 mat-card">
+            <mat-card-content>
+                <form [formGroup]="updateShippingAddress" (ngSubmit)="updateShippingSubmit()">
+                    <h3 class="text-center">עדכון כתובת משלוח
+                        משלוח מספר: O12345
+                    </h3>
+                    <p class="text-center">שיטת המשלוח של החבילה שנשלחה אליך שונתה.
+                        לצורך השלמת ביצוע המשלוח, נא להכניס פרטי כתובת משלוח.</p>
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control form-control-sm w-100" formControlName="fullName"
+                                [ngClass]="{'is-invalid':updateShippingAddress.controls['fullName'].touched && updateShippingAddress.controls['fullName'].invalid}" />
+
+                            <!-- <small
+                                *ngIf="updateShippingAddress.controls['fullName'].invalid && (updateShippingAddress.controls['fullName'].dirty || updateShippingAddress.controls['fullName'].touched)"
+                                class="invalid-feedback">
+                                שם פרטי ושם משפחה
+                            </small> -->
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-form-label text-end">
+                                שם פרטי ושם משפחה
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <input type="number" class="form-control form-control-sm w-100" formControlName="mobilePhone"
+                                [ngClass]="{'is-invalid':updateShippingAddress.controls['mobilePhone'].touched && updateShippingAddress.controls['mobilePhone'].invalid}" />
+
+                            <!-- <small
+                                *ngIf="updateShippingAddress.controls['mobilePhone'].invalid && (updateShippingAddress.controls['mobilePhone'].dirty || updateShippingAddress.controls['mobilePhone'].touched)"
+                                class="invalid-feedback">
+                                מספר טלפון נייד
+                            </small> -->
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-form-label text-end">
+                                מספר טלפון נייד
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <input type="number" class="form-control form-control-sm w-100" formControlName="streetHouseNum"
+                                [ngClass]="{'is-invalid':updateShippingAddress.controls['streetHouseNum'].touched && updateShippingAddress.controls['streetHouseNum'].invalid}" />
+
+                            <!-- <small
+                                *ngIf="updateShippingAddress.controls['streetHouseNum'].invalid && (updateShippingAddress.controls['streetHouseNum'].dirty || updateShippingAddress.controls['streetHouseNum'].touched)"
+                                class="invalid-feedback">
+                                רחוב ומספר בית
+                            </small> -->
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-form-label text-end">
+                                רחוב ומספר בית
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control form-control-sm w-100" formControlName="city"
+                                [ngClass]="{'is-invalid':updateShippingAddress.controls['city'].touched && updateShippingAddress.controls['city'].invalid}" />
+
+                            <!-- <small
+                                *ngIf="updateShippingAddress.controls['city'].invalid && (updateShippingAddress.controls['city'].dirty || updateShippingAddress.controls['city'].touched)"
+                                class="invalid-feedback">
+                                עיר
+                            </small> -->
+
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-form-label text-end">
+                                עיר
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control form-control-sm w-100" formControlName="notesMessenger"
+                                [ngClass]="{'is-invalid':updateShippingAddress.controls['notesMessenger'].touched && updateShippingAddress.controls['notesMessenger'].invalid}" />
+
+                            <!-- <small
+                                *ngIf="updateShippingAddress.controls['notesMessenger'].invalid && (updateShippingAddress.controls['notesMessenger'].dirty || updateShippingAddress.controls['notesMessenger'].touched)"
+                                class="invalid-feedback">
+                                הערות לשליח
+                            </small> -->
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-form-label text-end">
+                                הערות לשליח
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class=" d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary text-white" routerLink="/">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary text-white mx-1"
+                            [disabled]="updateShippingAddress.invalid">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

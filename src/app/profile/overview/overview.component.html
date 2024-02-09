@@ -1,0 +1,84 @@
+<div class="mt-4 mx-auto">
+    <mat-card class="example-card">
+        <form [formGroup]="updateProfile" (ngSubmit)="updateProfileSubmit()">
+            <mat-card-header class="mb-2 d-flex justify-content-center">
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="row mb-2">
+                    <div class="col-md-6 mb-2">
+                        <div>
+                            <label for="username" class="form-label">Username:</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Value" formControlName="username"
+                                [ngClass]="{'is-invalid':updateProfile.controls['username'].touched && updateProfile.controls['username'].invalid}" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control form-control-sm" placeholder="Value" formControlName="email"
+                                [ngClass]="{'is-invalid':updateProfile.controls['email'].touched && updateProfile.controls['email'].invalid}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div>
+                            <label for="gender" class="form-label">Gender:</label>
+                        </div>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="Male" value="male"
+                                    formControlName="gender" />
+                                <label class="form-check-label" for="Male">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="Female" value="female"
+                                    formControlName="gender" />
+                                <label class="form-check-label" for="Female">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="Other" value="other"
+                                    formControlName="gender" />
+                                <label class="form-check-label" for="Female">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div>
+                            <label for="city" class="form-label">City:</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Value" formControlName="city"
+                                [ngClass]="{'is-invalid':updateProfile.controls['city'].touched && updateProfile.controls['city'].invalid}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-6 mb-2">
+                        <div>
+                            <label for="address" class="form-label">Address:</label>
+                            <textarea class="form-control form-control-sm" placeholder="Value" formControlName="address"
+                                [ngClass]="{'is-invalid':updateProfile.controls['address'].touched && updateProfile.controls['address'].invalid}"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div>
+                            <label for="mobile" class="form-label">Mobile:</label>
+                            <input type="number" class="form-control form-control-sm" placeholder="Value" formControlName="mobile"
+                                [ngClass]="{'is-invalid':updateProfile.controls['mobile'].touched && updateProfile.controls['mobile'].invalid}" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex mt-2 justify-content-center">
+                    <button type="submit" class="btn btn-primary text-white mx-1" [disabled]="updateProfile.invalid">
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-secondary text-white" routerLink="/">
+                        Cancel
+                    </button>
+                </div>
+            </mat-card-content>
+
+        </form>
+    </mat-card>
+</div>

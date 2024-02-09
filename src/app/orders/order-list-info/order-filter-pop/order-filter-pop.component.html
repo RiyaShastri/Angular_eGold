@@ -1,0 +1,45 @@
+<form [formGroup]="FilterOption">
+    <div class="d-flex justify-content-between">
+        <h1 mat-dialog-title>Filter Records</h1>
+        <div class="d-flex text-end">
+            <mat-icon class="text-danger m-auto me-3" mat-dialog-close>close</mat-icon>
+        </div>
+    </div>
+
+    <div mat-dialog-content>
+        <div class="row mb-3">
+            <div class="col-md-6 mb-2">
+                <label for="order_codes">Order ID</label>
+                <input type="text" placeholder="Order ID" class="form-control form-control-sm"
+                    formControlName="order_codes" />
+            </div>
+            <div class="col-md-6">
+                <label for="depositor_ids">Depositor</label>
+                <select class="form-select form-select-sm" formControlName="depositor_ids">
+                    <option value="" selected>All
+                    </option>
+                    <option *ngFor="let depositor of data.depositors" [value]="depositor.idx">
+                        {{depositor.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-2">
+                <label>From Date</label>
+                <input type="date" class="form-control form-control-sm" formControlName="start_datetime" />
+            </div>
+            <div class="col-md-6">
+                <label>To Date</label>
+                <input type="date" class="form-control form-control-sm" formControlName="end_datetime" />
+            </div>
+        </div>
+
+
+    </div>
+    <div mat-dialog-actions class="float-end">
+        <button type="submit" class="btn btn-primary text-white mx-1" mat-dialog-close (click)="FilterData()">
+            Filter
+        </button>
+    </div>
+</form>
